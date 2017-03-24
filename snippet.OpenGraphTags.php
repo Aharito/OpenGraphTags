@@ -22,7 +22,7 @@
  * og_image - картинка для соцсетей, если не задана, соцсети ищут картинки в контенте
  * 
  *
- * @internal category SMO
+ * @internal @category SMO
  *
  * @version 0.2
  * @author Aharito http://aharito.ru
