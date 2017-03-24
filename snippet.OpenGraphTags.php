@@ -52,18 +52,18 @@ if ( in_array($docObject['template'], $_tplList) && $docObject['og_on_off'][1] )
 	// Эти параметры задаются при редактировании каждой статьи
 	// Для них нет 100% дефолтных значений, поэтому если они не заданы, то вообще не выводим соответствующий метатег
 	$desc = !empty($docObject["og_description"][1]) ? $docObject["og_description"][1] : $modx->runSnippet('summary', array('text' => $docObject['content'], 'len' => '50'));
-	$descTPL = !empty($desc) ? PHP_EOL."\t".'<meta property="og:description" content="' .$desc. '">' : '';
+	$descTPL = !empty($desc) ? '<meta property="og:description" content="' .$desc. '">' : '';
 	
-	$imgTPL = !empty($docObject["og_image"][1]) ? PHP_EOL."\t".'<meta property="og:image" content="' .(isset($thumbSnippet) ? $modx->runSnippet($thumbSnippet, array("input"=>$docObject["og_image"][1], "options"=>$thumbOptions)) : $docObject["og_image"][1]). '">'.PHP_EOL."\t" : '';
+	$imgTPL = !empty($docObject["og_image"][1]) ? '<meta property="og:image" content="' .(isset($thumbSnippet) ? $modx->runSnippet($thumbSnippet, array("input"=>$docObject["og_image"][1], "options"=>$thumbOptions)) : $docObject["og_image"][1]). '">' : '';
 
 
 	$out .=  '<meta property="og:site_name" content="' . $site_name . '">';
-	$out .= '<meta property="og:locale" content="' . $locale . '">';
-	$out .= '<meta property="og:type" content="article">';
-	$out .= '<meta property="og:title" content="' .$title. '">';
-	$out .= $descTPL;
-	$out .= $imgTPL;
-	$out .= '<meta property="og:url" content="' . $url . '">';
+	$out .= PHP_EOL."\t".'<meta property="og:locale" content="' . $locale . '">';
+	$out .= PHP_EOL."\t".'<meta property="og:type" content="article">';
+	$out .= PHP_EOL."\t".'<meta property="og:title" content="' .$title. '">';
+	$out .= $descTPL ? PHP_EOL."\t".$descTPL : '';
+	$out .= $imgTPL ? PHP_EOL."\t".$imgTPL : '';
+	$out .= PHP_EOL."\t".'<meta property="og:url" content="' . $url . '">';
 }
 
 return $out;
