@@ -47,7 +47,7 @@ if ( in_array($docObject['template'], $_tplList) && $docObject['og_on_off'][1] )
 	// Эти параметры задаются при редактировании каждой статьи
 	// Если они не заданы, то для них 100% есть дефолтные значения, они и выводятся
 	$title = !empty($docObject["og_title"][1]) ? $docObject["og_title"][1] : $docObject["pagetitle"];
-	$url = $modx->makeUrl($docObject["id"], '', '', 'full');
+	$url = $modx->makeUrl($docObject["id"], '', '', 'full'); // Была возможность редактировать УРЛ, но я убрал за ненужностью
 	
 	// Эти параметры задаются при редактировании каждой статьи
 	// Для них нет 100% дефолтных значений, поэтому если они не заданы, то вообще не выводим соответствующий метатег
@@ -57,13 +57,13 @@ if ( in_array($docObject['template'], $_tplList) && $docObject['og_on_off'][1] )
 	$imgTPL = !empty($docObject["og_image"][1]) ? PHP_EOL."\t".'<meta property="og:image" content="' .(isset($thumbSnippet) ? $modx->runSnippet($thumbSnippet, array("input"=>$docObject["og_image"][1], "options"=>$thumbOptions)) : $docObject["og_image"][1]). '">'.PHP_EOL."\t" : '';
 
 
-	$out =  '<meta property="og:site_name" content="' . $site_name . '">
-	<meta property="og:locale" content="' . $locale . '">
-	<meta property="og:type" content="article">
-	<meta property="og:title" content="' .$title. '">'
-	.$descTPL
-	.$imgTPL.
-	'<meta property="og:url" content="' . $url . '">';
+	$out .=  '<meta property="og:site_name" content="' . $site_name . '">';
+	$out .= '<meta property="og:locale" content="' . $locale . '">';
+	$out .= '<meta property="og:type" content="article">';
+	$out .= '<meta property="og:title" content="' .$title. '">';
+	$out .= $descTPL;
+	$out .= $imgTPL;
+	$out .= '<meta property="og:url" content="' . $url . '">';
 }
 
 return $out;
